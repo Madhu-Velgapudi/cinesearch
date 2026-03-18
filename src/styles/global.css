@@ -1,0 +1,354 @@
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── CSS Variables ───────────────────────────────────────── */
+:root {
+  --font-display: 'Bebas Neue', cursive;
+  --font-body: 'DM Sans', sans-serif;
+
+  --bg-primary:   #060810;
+  --bg-secondary: #0a0f1a;
+  --bg-card:      rgba(10, 15, 26, 0.88);
+  --bg-glass:     rgba(255,255,255,0.04);
+  --bg-glass-hover: rgba(255,255,255,0.08);
+
+  --text-primary:   #f0f4ff;
+  --text-secondary: rgba(240,244,255,0.55);
+  --text-muted:     rgba(240,244,255,0.3);
+
+  --accent:       #e8b84b;
+  --accent-dim:   rgba(232,184,75,0.15);
+  --accent-glow:  rgba(232,184,75,0.35);
+
+  --blue:         #4f8ef7;
+  --blue-dim:     rgba(79,142,247,0.15);
+  --red:          #f05454;
+  --green:        #36d39a;
+
+  --border:       rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  22px;
+  --radius-xl:  32px;
+
+  --shadow-card: 0 8px 40px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 40px var(--accent-glow);
+  --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── Light Theme ─────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:     #f0f2f8;
+  --bg-secondary:   #e4e8f4;
+  --bg-card:        rgba(255, 255, 255, 0.96);
+  --bg-glass:       rgba(0, 0, 0, 0.04);
+  --bg-glass-hover: rgba(0, 0, 0, 0.08);
+
+  --text-primary:   #0d1117;
+  --text-secondary: rgba(13, 17, 23, 0.62);
+  --text-muted:     rgba(13, 17, 23, 0.38);
+
+  --accent:         #c9860a;
+  --accent-dim:     rgba(201,134,10,0.12);
+  --accent-glow:    rgba(201,134,10,0.28);
+
+  --border:         rgba(0, 0, 0, 0.10);
+  --border-hover:   rgba(0, 0, 0, 0.20);
+
+  --shadow-card:    0 4px 24px rgba(0,0,0,0.10);
+  --shadow-glow:    0 0 32px rgba(201,134,10,0.25);
+
+  --blue:           #1d6fd4;
+  --blue-dim:       rgba(29,111,212,0.12);
+  --red:            #d93025;
+  --green:          #1a9e6e;
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 99px; }
+
+/* ── Utility ─────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ════════════════════════════════════════════════════════════
+   CINEMATIC ANIMATED BACKGROUND
+════════════════════════════════════════════════════════════ */
+
+/* Fixed full-screen background canvas */
+.cinema-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Deep space base */
+.cinema-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(79,46,160,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(232,184,75,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(15,25,60,0.6)   0%, transparent 70%),
+    linear-gradient(160deg, #060810 0%, #080d18 40%, #060a14 70%, #040608 100%);
+  animation: bgPulse 12s ease-in-out infinite alternate;
+}
+
+/* Film strip scanlines overlay */
+.cinema-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,0.012) 3px,
+    rgba(255,255,255,0.012) 4px
+  );
+  pointer-events: none;
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: orbFloat linear infinite;
+  opacity: 0;
+}
+
+.orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(99,54,255,0.22) 0%, transparent 70%);
+  top: -10%; left: -10%;
+  animation-duration: 25s;
+  animation-delay: 0s;
+}
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,184,75,0.15) 0%, transparent 70%);
+  bottom: -5%; right: -5%;
+  animation-duration: 30s;
+  animation-delay: -10s;
+}
+.orb-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(79,142,247,0.18) 0%, transparent 70%);
+  top: 40%; left: 60%;
+  animation-duration: 20s;
+  animation-delay: -5s;
+}
+.orb-4 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(240,84,84,0.10) 0%, transparent 70%);
+  top: 60%; left: 10%;
+  animation-duration: 35s;
+  animation-delay: -15s;
+}
+.orb-5 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(54,211,154,0.10) 0%, transparent 70%);
+  top: 10%; right: 20%;
+  animation-duration: 28s;
+  animation-delay: -8s;
+}
+
+/* Stars layer */
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%,  rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%,  rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 8%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 30%,  rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 55%,  rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 20%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 70%,  rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 85%,  rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 60% 75%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 65%,  rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 50%,  rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 90%,  rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5%  90%,  rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 95% 5%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 95%,  rgba(255,255,255,0.4) 0%, transparent 100%);
+  animation: starsTwinkle 8s ease-in-out infinite alternate;
+}
+
+/* Floating film-reel particles */
+.particle {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+  animation: particleDrift linear infinite;
+  user-select: none;
+}
+
+/* Make everything above the bg */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── Light mode background overrides ────────────────────── */
+[data-theme="light"] body {
+  background: var(--bg-primary);
+}
+
+[data-theme="light"] .cinema-bg::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(255,200,100,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(100,160,255,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(230,235,255,0.5)  0%, transparent 70%),
+    linear-gradient(160deg, #e8ecf8 0%, #edf0fa 40%, #e4e8f4 70%, #dde2f0 100%);
+  animation: bgPulseLight 12s ease-in-out infinite alternate;
+}
+
+[data-theme="light"] .cinema-bg::after {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.015) 3px,
+    rgba(0,0,0,0.015) 4px
+  );
+}
+
+[data-theme="light"] .orb-1 {
+  background: radial-gradient(circle, rgba(255,180,50,0.22) 0%, transparent 70%);
+}
+[data-theme="light"] .orb-2 {
+  background: radial-gradient(circle, rgba(100,160,255,0.20) 0%, transparent 70%);
+}
+[data-theme="light"] .orb-3 {
+  background: radial-gradient(circle, rgba(150,100,255,0.14) 0%, transparent 70%);
+}
+[data-theme="light"] .orb-4 {
+  background: radial-gradient(circle, rgba(255,100,100,0.10) 0%, transparent 70%);
+}
+[data-theme="light"] .orb-5 {
+  background: radial-gradient(circle, rgba(50,200,150,0.12) 0%, transparent 70%);
+}
+
+[data-theme="light"] .stars {
+  opacity: 0.08;
+}
+
+@keyframes bgPulseLight {
+  0% {
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(255,200,100,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(100,160,255,0.14) 0%, transparent 55%),
+      linear-gradient(160deg, #e8ecf8 0%, #edf0fa 40%, #e4e8f4 70%, #dde2f0 100%);
+  }
+  50% {
+    background:
+      radial-gradient(ellipse 80% 50% at 30% 30%, rgba(255,180,80,0.20) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 70% 60%, rgba(120,180,255,0.16) 0%, transparent 55%),
+      linear-gradient(160deg, #eaecfa 0%, #eef1fb 40%, #e6eaf6 70%, #dfe3f2 100%);
+  }
+  100% {
+    background:
+      radial-gradient(ellipse 80% 50% at 15% 60%, rgba(200,150,255,0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 85% 20%, rgba(100,200,255,0.14) 0%, transparent 55%),
+      linear-gradient(160deg, #e6eaf8 0%, #ebeff9 40%, #e2e7f3 70%, #dce1ef 100%);
+  }
+}
+
+/* ── Light mode Navbar ───────────────────────────────────── */
+[data-theme="light"] .nav,
+[data-theme="light"] nav {
+  background: rgba(240, 242, 248, 0.88) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.10) !important;
+}
+/* ── Animations ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes bgPulse {
+  0%   {
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(79,46,160,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(232,184,75,0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(15,25,60,0.6)   0%, transparent 70%),
+      linear-gradient(160deg, #060810 0%, #080d18 40%, #060a14 70%, #040608 100%);
+  }
+  50%  {
+    background:
+      radial-gradient(ellipse 80% 50% at 30% 30%, rgba(99,54,255,0.20) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 70% 70%, rgba(232,184,75,0.13) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(10,20,55,0.6)   0%, transparent 70%),
+      linear-gradient(160deg, #070912 0%, #090e1a 40%, #07090f 70%, #040608 100%);
+  }
+  100% {
+    background:
+      radial-gradient(ellipse 80% 50% at 15% 60%, rgba(30,80,200,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 85% 20%, rgba(232,184,75,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(12,22,58,0.6)   0%, transparent 70%),
+      linear-gradient(160deg, #06080f 0%, #080c17 40%, #060912 70%, #040608 100%);
+  }
+}
+@keyframes orbFloat {
+  0%   { opacity: 0;    transform: translate(0, 0) scale(1); }
+  10%  { opacity: 1; }
+  50%  { opacity: 0.8;  transform: translate(60px, -80px) scale(1.15); }
+  90%  { opacity: 1; }
+  100% { opacity: 0;    transform: translate(0, 0) scale(1); }
+}
+@keyframes starsTwinkle {
+  0%   { opacity: 0.6; transform: scale(1); }
+  50%  { opacity: 1;   transform: scale(1.02); }
+  100% { opacity: 0.7; transform: scale(1); }
+}
+@keyframes particleDrift {
+  0%   { opacity: 0;   transform: translateY(100vh) rotate(0deg); }
+  10%  { opacity: 0.4; }
+  90%  { opacity: 0.2; }
+  100% { opacity: 0;   transform: translateY(-100px) rotate(360deg); }
+}

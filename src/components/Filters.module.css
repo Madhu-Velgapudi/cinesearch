@@ -1,0 +1,24 @@
+.wrap { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+.field {
+  padding: 9px 14px;
+  background: var(--bg-glass);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xl);
+  color: var(--text-primary);
+  font-family: var(--font-body); font-size: 13px;
+  outline: none; cursor: pointer; transition: var(--transition); min-width: 120px;
+}
+.field:focus { border-color: var(--accent); }
+.field option { background: var(--bg-secondary); color: var(--text-primary); }
+
+.clearBtn {
+  padding: 9px 16px;
+  background: rgba(240,84,84,0.1);
+  border: 1px solid rgba(240,84,84,0.25);
+  border-radius: var(--radius-xl);
+  color: var(--red);
+  font-family: var(--font-body); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+}
+.clearBtn:hover { background: rgba(240,84,84,0.2); }

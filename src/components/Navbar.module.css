@@ -1,0 +1,456 @@
+/* ══════════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════════ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 68px;
+  background: rgba(6, 8, 16, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+
+/* ── Logo ──────────────────────────── */
+.logo {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.logo span { color: var(--text-primary); }
+.logo:hover { opacity: 0.8; transform: scale(1.02); }
+
+/* ── Watchlist button ──────────────── */
+.watchlistBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: var(--bg-glass);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xl);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.watchlistBtn:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* Active page highlight */
+.activePage {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  background: var(--accent-dim) !important;
+  box-shadow: 0 0 14px var(--accent-dim);
+}
+
+.badge {
+  background: var(--red);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ── Right group ───────────────────── */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Icon buttons ──────────────────── */
+.iconBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  font-size: 16px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+.iconBtn:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-hover);
+  transform: scale(1.08);
+}
+/* active search icon when on home */
+.activeIcon {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Navbar search ─────────────────── */
+.navSearchWrap { position: relative; }
+
+.navSearchBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-xl);
+  padding: 6px 10px 6px 14px;
+  animation: scaleIn 0.18s ease;
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+.navSearchBox span { font-size: 14px; opacity: 0.6; flex-shrink: 0; }
+
+.navSearchInput {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  width: 180px;
+}
+.navSearchInput::placeholder { color: var(--text-muted); }
+
+.navSearchClose {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.navSearchClose:hover { color: var(--text-primary); }
+
+/* ══════════════════════════════════════════════
+   AVATAR BUTTON
+══════════════════════════════════════════════ */
+.avatarWrap { position: relative; }
+
+.avatarBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: var(--transition);
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.avatarBtn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-dim);
+  transform: scale(1.05);
+}
+
+.avatarEmoji { font-size: 22px; line-height: 1; }
+
+.avatarImg {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.avatarChevron {
+  position: absolute;
+  bottom: -6px;
+  right: -4px;
+  font-size: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+/* ══════════════════════════════════════════════
+   DROPDOWN MENU
+══════════════════════════════════════════════ */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 260px;
+  background: rgba(10, 14, 26, 0.97);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  backdrop-filter: blur(24px);
+  overflow: hidden;
+  animation: dropdownOpen 0.2s cubic-bezier(0.34,1.3,0.64,1);
+  z-index: 300;
+}
+
+@keyframes dropdownOpen {
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Header section */
+.dropHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.dropAvatarCircle {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.dropName {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.dropEmail {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.dropDivider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* Menu items */
+.dropItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+.dropItem:hover {
+  background: var(--bg-glass-hover);
+  color: var(--text-primary);
+  padding-left: 20px;
+}
+.dropItem span:first-child { font-size: 16px; width: 20px; text-align: center; }
+
+.dropBadge {
+  margin-left: auto;
+  background: var(--red);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.dropItemRed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: none;
+  border: none;
+  color: var(--red);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: left;
+}
+.dropItemRed:hover {
+  background: rgba(240,84,84,0.1);
+  padding-left: 20px;
+}
+.dropItemRed span:first-child { font-size: 16px; width: 20px; text-align: center; }
+
+/* ══════════════════════════════════════════════
+   AVATAR PICKER
+══════════════════════════════════════════════ */
+.avatarPickerWrap { padding: 8px 0; }
+
+.avatarPickerHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-body);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.backBtn:hover { background: var(--accent-dim); }
+
+.avatarGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 4px 12px 12px;
+}
+
+.avatarOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 22px;
+}
+.avatarOption small {
+  font-size: 9px;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.avatarOption:hover {
+  border-color: rgba(255,255,255,0.3);
+  transform: scale(1.1);
+}
+.selectedAvatar {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: scale(1.05);
+}
+
+
+/* ══════════════════════════════════════════════
+   LIGHT MODE NAVBAR OVERRIDES
+══════════════════════════════════════════════ */
+:global([data-theme="light"]) .nav {
+  background: rgba(240, 242, 248, 0.90);
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+}
+
+:global([data-theme="light"]) .watchlistBtn {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.12);
+  color: #333;
+}
+:global([data-theme="light"]) .watchlistBtn:hover {
+  background: rgba(0,0,0,0.09);
+  color: #000;
+}
+
+:global([data-theme="light"]) .logo span { color: #0d1117; }
+
+:global([data-theme="light"]) .iconBtn {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.12);
+}
+:global([data-theme="light"]) .iconBtn:hover {
+  background: rgba(0,0,0,0.10);
+}
+
+:global([data-theme="light"]) .navSearchBox {
+  background: white;
+  border-color: #c9860a;
+  box-shadow: 0 0 0 3px rgba(201,134,10,0.12);
+}
+
+:global([data-theme="light"]) .dropdown {
+  background: rgba(255,255,255,0.98);
+  border-color: rgba(0,0,0,0.12);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+}
+
+:global([data-theme="light"]) .dropName  { color: #0d1117; }
+:global([data-theme="light"]) .dropEmail { color: rgba(13,17,23,0.5); }
+:global([data-theme="light"]) .dropDivider { background: rgba(0,0,0,0.08); }
+
+:global([data-theme="light"]) .dropItem {
+  color: rgba(13,17,23,0.7);
+}
+:global([data-theme="light"]) .dropItem:hover {
+  background: rgba(0,0,0,0.05);
+  color: #0d1117;
+}
+
+:global([data-theme="light"]) .avatarPickerHeader {
+  border-color: rgba(0,0,0,0.08);
+  color: rgba(13,17,23,0.6);
+}

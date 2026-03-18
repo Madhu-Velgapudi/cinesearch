@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+}
+
+/* ── Hero ───────────────────────────────────────── */
+.hero {
+  padding: 100px 24px 52px;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.heroCompact {
+  padding: 32px 24px 28px;
+}
+
+/* Title line 1 — "Find Your Next" white */
+.heroLine1 {
+  display: block;
+  font-family: 'Nunito', 'DM Sans', sans-serif;
+  font-size: clamp(52px, 9vw, 96px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #ffffff;
+  letter-spacing: -1px;
+  animation: heroSlideDown 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+/* Title line 2 — "Favourite Film" gold */
+.heroLine2 {
+  display: block;
+  font-family: 'Nunito', 'DM Sans', sans-serif;
+  font-size: clamp(52px, 9vw, 96px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--accent);
+  letter-spacing: -1px;
+  animation: heroSlideUp 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+  /* golden glow on text */
+  text-shadow: 0 0 60px rgba(232,184,75,0.4), 0 0 120px rgba(232,184,75,0.15);
+}
+
+.heroTitle {
+  margin-bottom: 20px;
+}
+
+/* hide title when results show */
+.heroCompact .heroTitle {
+  display: none;
+}
+.heroCompact .heroSub {
+  display: none;
+}
+
+.heroSub {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  animation: fadeIn 0.6s ease 0.35s both;
+}
+
+/* animated underline accent */
+.heroAccent {
+  display: inline-block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+  margin: 0 auto 36px;
+  animation: fadeIn 0.6s ease 0.5s both;
+}
+.heroCompact .heroAccent { display: none; }
+
+@keyframes heroSlideDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Main ──────────────────────────────────────── */
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.sectionLabel {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 32px 0 18px;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 22px;
+}
+
+/* ── Empty State ───────────────────────────────── */
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-secondary);
+  animation: fadeIn 0.3s ease;
+}
+.empty span { font-size: 56px; display: block; margin-bottom: 14px; }
+.empty p    { font-size: 18px; }
+
+
+/* ── Light Mode ── */
+:global([data-theme="light"]) .heroLine1 { color: #0d1117; }
+:global([data-theme="light"]) .heroLine2 {
+  color: #c9860a;
+  text-shadow: 0 0 40px rgba(201,134,10,0.25);
+}
+:global([data-theme="light"]) .heroSub   { color: rgba(13,17,23,0.55); }
+:global([data-theme="light"]) .sectionLabel { color: #0d1117; }
+:global([data-theme="light"]) .empty     { color: rgba(13,17,23,0.5); }
